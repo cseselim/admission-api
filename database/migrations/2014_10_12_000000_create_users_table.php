@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('salt',255);
             $table->string('password',255);
             $table->integer('is_first_login')->nullable();
-            $table->tinyInteger('is_active')->nullable();
+            $table->tinyInteger('is_active')->default(1);
             $table->tinyInteger('user_type')->nullable()->comment('1=admin,2=teacher,3=parent');
             $table->string('profile_pic',255)->nullable();
             $table->rememberToken();

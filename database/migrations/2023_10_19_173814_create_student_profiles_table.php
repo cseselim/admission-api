@@ -30,7 +30,7 @@ class CreateStudentProfilesTable extends Migration
             $table->text('permanent_address')->nullable();
             $table->string('date_of_birth',100);
             $table->string('birth_registration_no',50)->nullable();
-            $table->tinyInteger('student_sex')->comment('1=male,2=famale,3=other');
+            $table->string('student_sex',150);
             $table->string('religion',50);
             $table->string('last_school_name',100)->nullable();
             $table->string('last_exam',100)->nullable();
