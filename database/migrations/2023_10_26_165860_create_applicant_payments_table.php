@@ -15,12 +15,12 @@ class CreateApplicantPaymentsTable extends Migration
     {
         Schema::create('applicant_payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id');
-            $table->foreign('student_id')->references('id')->on('student_profiles');
+            $table->foreignId('applicant_id');
+            $table->foreign('applicant_id')->references('id')->on('applicant_students');
             $table->string('name',100)->nullable();
             $table->string('email',100)->nullable();
             $table->string('phone',50)->nullable();
-            $table->decimal('amount',2)->nullable();
+            $table->decimal('amount',6,2)->nullable();
             $table->text('address')->nullable();
             $table->string('transactionId',255)->nullable();
             $table->string('orderId',255)->nullable();

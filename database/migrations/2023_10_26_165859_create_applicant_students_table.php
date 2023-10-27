@@ -27,6 +27,7 @@ class CreateApplicantStudentsTable extends Migration
             $table->foreign('version_id')->references('id')->on('versions');
             $table->foreignId('shift_id');
             $table->foreign('shift_id')->references('id')->on('shifts');
+            $table->bigInteger('admission_number')->nullable();
             $table->string('student_age',255)->nullable();
             $table->string('session',100)->nullable();
             $table->string('transaction_id',255)->nullable();

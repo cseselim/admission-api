@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\AdmissionNumber;
+use App\Models\ApplicantPayment;
+use App\Models\ApplicantStudent;
+use App\Models\PaymentGatewayList;
 use App\Models\User;
 use App\Models\School;
 use App\Models\StudentProfile;
@@ -21,7 +24,6 @@ class DatabaseSeeder extends Seeder
             ->has(StudentProfile::factory()->count(1))
         ->create();
 
-        /*===============school factory======*/
         School::factory(5)->create();
 
         $this->call(VersionSeeder::class);
@@ -29,5 +31,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ClassSeeder::class);
 
         AdmissionNumber::factory(10)->create();
+        ApplicantStudent::factory(10)->create();
+        ApplicantPayment::factory(10)->create();
+        PaymentGatewayList::factory(1)->create();
     }
 }

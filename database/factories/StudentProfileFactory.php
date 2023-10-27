@@ -17,7 +17,7 @@ class StudentProfileFactory extends Factory
             'student_name'=> $this->faker->name,
             'father_name'=> $this->faker->name($gender = 'male') ,
             'father_nid_no'=> $this->faker->randomNumber($nbDigits = NULL, $strict = false),
-            'father_occupation'=> $this->faker->jobTitle,
+            'father_occupation'=> $this->faker->word,
             'father_contact'=> $this->faker->phoneNumber,
             'unit'=> 'Army-012',
             'rank'=> 'Cornel',

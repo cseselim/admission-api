@@ -23,7 +23,7 @@ class CreatePaymentGatewayListsTable extends Migration
             $table->string('password',100)->nullable();
             $table->string('merchant_id',100)->nullable();
             $table->string('paymentGateway',100)->nullable();
-            $table->decimal('amount',2);
+            $table->decimal('amount',6,2);
             $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
