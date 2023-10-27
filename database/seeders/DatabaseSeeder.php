@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AdmissionNumber;
 use App\Models\User;
 use App\Models\School;
 use App\Models\StudentProfile;
@@ -26,5 +27,7 @@ class DatabaseSeeder extends Seeder
         $this->call(VersionSeeder::class);
         $this->call(ShiftSeeder::class);
         $this->call(ClassSeeder::class);
+
+        AdmissionNumber::factory(10)->create();
     }
 }
