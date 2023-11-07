@@ -26,4 +26,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::get('/shift', [\App\Http\Controllers\API\shiftController::class, 'index'])->name('shift.index');
+Route::GET('/shift', [\App\Http\Controllers\API\shiftController::class, 'index'])->name('shift.index');
+Route::POST('/shift', [\App\Http\Controllers\API\shiftController::class, 'store'])->name('shift.store');
+Route::post('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'update'])->name('shift.update');
+Route::DELETE('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'destroy'])->name('shift.destroy');
+
+Route::get('/classes', [\App\Http\Controllers\API\ClassesController::class, 'index'])->name('classes.index');
+Route::post('/classes', [\App\Http\Controllers\API\ClassesController::class, 'store'])->name('classes.store');
+Route::post('/classes/{id}', [\App\Http\Controllers\API\ClassesController::class, 'update'])->name('classes.update');
+Route::delete('/classes/{id}', [\App\Http\Controllers\API\ClassesController::class, 'destroy'])->name('classes.destroy');

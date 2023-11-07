@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Shift;
+use App\Models\Classes;
 use Illuminate\Http\Request;
 use App\Exceptions\CustomException;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\Shift\ShiftResource;
+use App\Http\Resources\Classes\ClassResource;
 
-class shiftController extends Controller
+class ClassesController extends Controller
 {
-    /**
+     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return  ShiftResource::collection(Shift::where('status',1)->get());
+        return  ClassResource::collection(Classes::where('status',1)->get());
     }
 
     /**
@@ -39,13 +39,13 @@ class shiftController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:shifts',
-            'code' => 'required|unique:shifts,code',
+            'name' => 'required|unique:classes',
+            'code' => 'required|unique:classes,code',
         ]);
 
-        Shift::create($validated);
+        Classes::create($validated);
 
-        return response()->json(['message' => __('Shift create successfully')], 201);
+        return response()->json(['message' => __('Class create successfully')], 201);
     }
 
     /**
@@ -82,18 +82,18 @@ class shiftController extends Controller
         $validated = $this->validate(
             $request,
             [
-                'name' => 'required|unique:shifts,name,'.$id,
-                'code' => 'required|unique:shifts,code,'.$id,
+                'name' => 'required|unique:classes,name,'.$id,
+                'code' => 'required|unique:classes,code,'.$id,
             ]
         );
 
-        $shift = Shift::find($id);
-        if (!$shift) {
-            throw new CustomException(__('Shift not found'),404);
+        $classes = Classes::find($id);
+        if (!$classes) {
+            throw new CustomException(__('Class not found'),404);
         }
-        $shift->update($validated);
+        $classes->update($validated);
 
-        return response()->json(['message' => __('Shift updated successfully')]);
+        return response()->json(['message' => __('Class updated successfully')]);
     }
 
     /**
@@ -104,13 +104,13 @@ class shiftController extends Controller
      */
     public function destroy($id)
     {
-        $shift = Shift::find($id);
+        $classes = Classes::find($id);
 
-        if ($shift) {
-            $shift->delete();
-            return response()->json(['message' => __('Shift deleted successfully')]);
+        if ($classes) {
+            $classes->delete();
+            return response()->json(['message' => __('Class deleted successfully')]);
         }
 
-        throw new CustomException(__('Shift not found to delete'));
+        throw new CustomException(__('Class not found to delete'));
     }
 }
