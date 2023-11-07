@@ -35,3 +35,8 @@ Route::get('/classes', [\App\Http\Controllers\API\ClassesController::class, 'ind
 Route::post('/classes', [\App\Http\Controllers\API\ClassesController::class, 'store'])->name('classes.store');
 Route::post('/classes/{id}', [\App\Http\Controllers\API\ClassesController::class, 'update'])->name('classes.update');
 Route::delete('/classes/{id}', [\App\Http\Controllers\API\ClassesController::class, 'destroy'])->name('classes.destroy');
+
+Route::get('/admission-number', [\App\Http\Controllers\API\AdmissionNumberController::class, 'index'])->name('admission-number.index');
+Route::post('/admission-number', [\App\Http\Controllers\API\AdmissionNumberController::class, 'store'])->name('admission-number.store');
+Route::post('/admission-number/{id}', [\App\Http\Controllers\API\AdmissionNumberController::class, 'update'])->name('admission-number.update');
+Route::delete('/admission-number/{id}', [\App\Http\Controllers\API\AdmissionNumberController::class, 'destroy'])->name('admission-number.destroy');
