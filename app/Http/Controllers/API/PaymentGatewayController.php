@@ -63,7 +63,7 @@ class PaymentGatewayController extends Controller
      */
     public function show($id)
     {
-        //
+        return  response()->json(['data' => PaymentGatewayList::find($id)]);
     }
 
     /**
