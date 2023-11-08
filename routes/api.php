@@ -57,3 +57,9 @@ Route::post('/payment-gateway', [\App\Http\Controllers\API\PaymentGatewayControl
 Route::get('/payment-gateway/{id}', [\App\Http\Controllers\API\PaymentGatewayController::class, 'show'])->name('payment-gateway.show');
 Route::post('/payment-gateway/{id}', [\App\Http\Controllers\API\PaymentGatewayController::class, 'update'])->name('payment-gateway.update');
 Route::delete('/payment-gateway/{id}', [\App\Http\Controllers\API\PaymentGatewayController::class, 'destroy'])->name('payment-gateway.destroy');
+
+Route::GET('/student-profiles', [\App\Http\Controllers\API\SchoolController::class, 'index'])->name('student-profile.index');
+Route::POST('/student-profile', [\App\Http\Controllers\API\SchoolController::class, 'store'])->name('student-profile.store');
+Route::get('/student-profile/{id}', [\App\Http\Controllers\API\SchoolController::class, 'show'])->name('student-profile.show');
+Route::post('/student-profile/{id}', [\App\Http\Controllers\API\SchoolController::class, 'update'])->name('student-profile.update');
+Route::DELETE('/student-profile/{id}', [\App\Http\Controllers\API\SchoolController::class, 'destroy'])->name('student-profile.destroy');
