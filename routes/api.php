@@ -26,6 +26,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
+Route::GET('/schools', [\App\Http\Controllers\API\SchoolController::class, 'index'])->name('school.index');
+Route::POST('/school', [\App\Http\Controllers\API\SchoolController::class, 'store'])->name('school.store');
+Route::get('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'show'])->name('school.show');
+Route::post('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'update'])->name('school.update');
+Route::DELETE('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'destroy'])->name('school.destroy');
+
 Route::GET('/shift', [\App\Http\Controllers\API\shiftController::class, 'index'])->name('shift.index');
 Route::POST('/shift', [\App\Http\Controllers\API\shiftController::class, 'store'])->name('shift.store');
 Route::post('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'update'])->name('shift.update');
