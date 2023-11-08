@@ -40,3 +40,8 @@ Route::get('/admission-number', [\App\Http\Controllers\API\AdmissionNumberContro
 Route::post('/admission-number', [\App\Http\Controllers\API\AdmissionNumberController::class, 'store'])->name('admission-number.store');
 Route::post('/admission-number/{id}', [\App\Http\Controllers\API\AdmissionNumberController::class, 'update'])->name('admission-number.update');
 Route::delete('/admission-number/{id}', [\App\Http\Controllers\API\AdmissionNumberController::class, 'destroy'])->name('admission-number.destroy');
+
+Route::get('/version', [\App\Http\Controllers\API\VersionController::class, 'index'])->name('version.index');
+Route::post('/version', [\App\Http\Controllers\API\VersionController::class, 'store'])->name('version.store');
+Route::post('/version/{id}', [\App\Http\Controllers\API\VersionController::class, 'update'])->name('version.update');
+Route::delete('/version/{id}', [\App\Http\Controllers\API\VersionController::class, 'destroy'])->name('version.destroy');
