@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentGatewayList extends Model
 {
     use HasFactory;
+
+     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'school_id',
+        'app_keys',
+        'app_secret',
+        'username',
+        'password',
+        'merchant_id',
+        'paymentGateway',
+        'amount',
+        'status',
+    ];
 }

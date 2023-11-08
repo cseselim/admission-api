@@ -45,3 +45,8 @@ Route::get('/version', [\App\Http\Controllers\API\VersionController::class, 'ind
 Route::post('/version', [\App\Http\Controllers\API\VersionController::class, 'store'])->name('version.store');
 Route::post('/version/{id}', [\App\Http\Controllers\API\VersionController::class, 'update'])->name('version.update');
 Route::delete('/version/{id}', [\App\Http\Controllers\API\VersionController::class, 'destroy'])->name('version.destroy');
+
+Route::get('/payment-gateway', [\App\Http\Controllers\API\PaymentGatewayController::class, 'index'])->name('payment-gateway.index');
+Route::post('/payment-gateway', [\App\Http\Controllers\API\PaymentGatewayController::class, 'store'])->name('payment-gateway.store');
+Route::post('/payment-gateway/{id}', [\App\Http\Controllers\API\PaymentGatewayController::class, 'update'])->name('payment-gateway.update');
+Route::delete('/payment-gateway/{id}', [\App\Http\Controllers\API\PaymentGatewayController::class, 'destroy'])->name('payment-gateway.destroy');
