@@ -63,3 +63,6 @@ Route::post('/student-profile', [\App\Http\Controllers\API\StudentProfileControl
 Route::get('/student-profile/{id}', [\App\Http\Controllers\API\StudentProfileController::class, 'show'])->name('student-profile.show');
 Route::post('/student-profile/{id}', [\App\Http\Controllers\API\StudentProfileController::class, 'update'])->name('student-profile.update');
 Route::delete('/student-profile/{id}', [\App\Http\Controllers\API\StudentProfileController::class, 'destroy'])->name('student-profile.destroy');
+
+
+Route::post('/student-application', [\App\Http\Controllers\API\StudentApplicationController::class, 'store'])->name('student-application.store');
