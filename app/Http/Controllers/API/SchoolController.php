@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Models\School;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Exceptions\CustomException;
 use App\Http\Controllers\Controller;
@@ -123,5 +124,10 @@ class SchoolController extends Controller
         }
 
         throw new CustomException(__('School not found to delete'));
+    }
+
+    public function parents()
+    {
+        return  response()->json(['data' => User::where('user_type',3)->get()]);
     }
 }

@@ -45,7 +45,7 @@ class StudentProfileController extends Controller
             'father_nid_no' => 'required',
             'father_occupation' => 'required',
             'father_contact' => 'required',
-            'occupation_category' => 'required',
+            //'occupation_category' => 'required',
             'unit' => 'nullable',
             'rank' => 'nullable',
             'mother_name' => 'required',
@@ -71,6 +71,14 @@ class StudentProfileController extends Controller
             'unit_certificate' => 'nullable',
             'status' => 'required',
         ]);
+        if($request->hasfile('profile_image'))
+        {
+            $file = $request->file('profile_image');
+            $extenstion = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extenstion;
+            $file->move('uploads/profileImage/', $filename);
+            $validated['profile_image'] = $filename;
+        }
 
         StudentProfile::create($validated);
 
@@ -115,7 +123,7 @@ class StudentProfileController extends Controller
             'father_nid_no' => 'required',
             'father_occupation' => 'required',
             'father_contact' => 'required',
-            'occupation_category' => 'required',
+            //'occupation_category' => 'required',
             'unit' => 'nullable',
             'rank' => 'nullable',
             'mother_name' => 'required',

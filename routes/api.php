@@ -27,6 +27,7 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 Route::GET('/schools', [\App\Http\Controllers\API\SchoolController::class, 'index'])->name('school.index');
+Route::GET('/parents', [\App\Http\Controllers\API\SchoolController::class, 'parents'])->name('school.parents');
 Route::POST('/school', [\App\Http\Controllers\API\SchoolController::class, 'store'])->name('school.store');
 Route::get('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'show'])->name('school.show');
 Route::post('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'update'])->name('school.update');
