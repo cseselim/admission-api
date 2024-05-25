@@ -17,7 +17,7 @@ class StudentProfileController extends Controller
      */
     public function index()
     {
-        return  StudentProfileResource::collection(StudentProfile::get());
+        return  StudentProfileResource::collection(StudentProfile::paginate(5));
     }
 
     /**
