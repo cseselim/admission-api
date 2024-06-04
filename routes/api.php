@@ -67,3 +67,9 @@ Route::delete('/student-profile/{id}', [\App\Http\Controllers\API\StudentProfile
 
 
 Route::post('/student-application', [\App\Http\Controllers\API\StudentApplicationController::class, 'store'])->name('student-application.store');
+
+Route::post('/ssl-payment', [\App\Http\Controllers\API\PaymentController::class, 'payment']);
+
+Route::post('/success', [\App\Http\Controllers\API\PaymentController::class, 'success']);
+Route::post('/fail', [\App\Http\Controllers\API\PaymentController::class, 'fail']);
+Route::post('/cancel', [\App\Http\Controllers\API\PaymentController::class, 'cancel']);
