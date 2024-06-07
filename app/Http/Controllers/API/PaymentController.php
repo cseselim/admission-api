@@ -3,83 +3,94 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\ApplicantStudent;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {
     public function payment(Request $request)
     {
+        $data = json_decode($request->order,true);
+        if ($data['amount'] && !empty($data['applicationInfo'])){
+            DB::table('session')->insert([
+                'all_info' => json_encode($data),
+                'student_id' => json_decode($data['applicationInfo'])->student_id,
+                'parent_id' => $data['parent_id'],
+            ]);
+            //dd($request->query('abc'));
+            # Here you have to receive all the order data to initate the payment.
+            # Lets your oder trnsaction informations are saving in a table called "orders"
+            # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
 
-        # Here you have to receive all the order data to initate the payment.
-        # Lets your oder trnsaction informations are saving in a table called "orders"
-        # In orders table order uniq identity is "transaction_id","status" field contain status of the transaction, "amount" is the order amount to be paid and "currency" is for storing Site Currency which will be checked with paid currency.
+            $post_data = array();
+            $post_data['total_amount'] = $data['amount']; # You cant not pay less than 10
+            $post_data['currency'] = "BDT";
+            $post_data['tran_id'] = 'abc-'.json_decode($data['applicationInfo'])->student_id.'-'.$data['parent_id'].'-'.time().uniqid(); // tran_id must be unique
 
-        $post_data = array();
-        $post_data['total_amount'] = '10'; # You cant not pay less than 10
-        $post_data['currency'] = "BDT";
-        $post_data['tran_id'] = uniqid(); // tran_id must be unique
+            # CUSTOMER INFORMATION
+            $post_data['cus_name'] = $data['customer_name'];
+            $post_data['cus_email'] = $data['email'];
+            $post_data['cus_add1'] = 'Customer Address';
+            $post_data['cus_add2'] =  $data['applicationInfo'];
+            $post_data['cus_city'] = "";
+            $post_data['cus_state'] = "";
+            $post_data['cus_postcode'] = "";
+            $post_data['cus_country'] = "Bangladesh";
+            $post_data['cus_phone'] = $data['mobile'];
+            $post_data['cus_fax'] = "";
 
-        # CUSTOMER INFORMATION
-        $post_data['cus_name'] = 'Customer Name';
-        $post_data['cus_email'] = 'customer@mail.com';
-        $post_data['cus_add1'] = 'Customer Address';
-        $post_data['cus_add2'] = "";
-        $post_data['cus_city'] = "";
-        $post_data['cus_state'] = "";
-        $post_data['cus_postcode'] = "";
-        $post_data['cus_country'] = "Bangladesh";
-        $post_data['cus_phone'] = '8801XXXXXXXXX';
-        $post_data['cus_fax'] = "";
+            # SHIPMENT INFORMATION
+            $post_data['ship_name'] = "Store Test";
+            $post_data['ship_add1'] = "Dhaka";
+            $post_data['ship_add2'] = "Dhaka";
+            $post_data['ship_city'] = "Dhaka";
+            $post_data['ship_state'] = "Dhaka";
+            $post_data['ship_postcode'] = "1000";
+            $post_data['ship_phone'] = "";
+            $post_data['ship_country'] = "Bangladesh";
 
-        # SHIPMENT INFORMATION
-        $post_data['ship_name'] = "Store Test";
-        $post_data['ship_add1'] = "Dhaka";
-        $post_data['ship_add2'] = "Dhaka";
-        $post_data['ship_city'] = "Dhaka";
-        $post_data['ship_state'] = "Dhaka";
-        $post_data['ship_postcode'] = "1000";
-        $post_data['ship_phone'] = "";
-        $post_data['ship_country'] = "Bangladesh";
+            $post_data['shipping_method'] = "NO";
+            $post_data['product_name'] = "Computer";
+            $post_data['product_category'] = "Goods";
+            $post_data['product_profile'] = "physical-goods";
 
-        $post_data['shipping_method'] = "NO";
-        $post_data['product_name'] = "Computer";
-        $post_data['product_category'] = "Goods";
-        $post_data['product_profile'] = "physical-goods";
-
-        # OPTIONAL PARAMETERS
-        $post_data['value_a'] = "ref001";
-        $post_data['value_b'] = "ref002";
-        $post_data['value_c'] = "ref003";
-        $post_data['value_d'] = "ref004";
+            # OPTIONAL PARAMETERS
+            $post_data['value_a'] = "ref001";
+            $post_data['value_b'] = "ref002";
+            $post_data['value_c'] = "ref003";
+            $post_data['value_d'] = "ref004";
 
 
-        #Before  going to initiate the payment order status need to update as Pending.
-         $update_product = DB::table('applicant_payments')
-             ->where('transaction_id', $post_data['tran_id'])
-             ->updateOrInsert([
-                 'applicant_id' => 1,
-                 'name' => $post_data['cus_name'],
-                 'email' => $post_data['cus_email'],
-                 'phone' => $post_data['cus_phone'],
-                 'amount' => $post_data['total_amount'],
-                 'status' => 'Pending',
-                 'address' => $post_data['cus_add1'],
-                 'transaction_id' => $post_data['tran_id'],
-                 'currency' => $post_data['currency']
-             ]);
+            #Before  going to initiate the payment order status need to update as Pending.
+            $update_product = DB::table('applicant_payments')
+                ->where('transaction_id', $post_data['tran_id'])
+                ->updateOrInsert([
+                    'applicant_id' => 1,
+                    'name' => $post_data['cus_name'],
+                    'email' => $post_data['cus_email'],
+                    'phone' => $post_data['cus_phone'],
+                    'amount' => $post_data['total_amount'],
+                    'status' => 'Pending',
+                    'address' => $post_data['cus_add1'],
+                    'transaction_id' => $post_data['tran_id'],
+                    'currency' => $post_data['currency']
+                ]);
 
-        $sslc = new SslCommerzNotification();
-        # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
-        $payment_options = $sslc->makePayment($post_data, 'checkout', 'json');
+            $sslc = new SslCommerzNotification();
+            # initiate(Transaction Data , false: Redirect to SSLCOMMERZ gateway/ true: Show all the Payement gateway here )
+            $payment_options = $sslc->makePayment($post_data, 'checkout', 'json');
 
-        if (!is_array($payment_options)) {
-            print_r($payment_options);
-            $payment_options = array();
+            if (!is_array($payment_options)) {
+                print_r($payment_options);
+                $payment_options = array();
+            }
+        }else{
+            return Redirect::to('http://localhost:3000/payment-fail');
         }
-
     }
 
     public function success(Request $request)
@@ -110,7 +121,32 @@ class PaymentController extends Controller
                     ->where('transaction_id', $tran_id)
                     ->update(['status' => 'Processing']);
 
-                echo "<br >Transaction is successfully Completed";
+                $studentParentId = explode("-",$tran_id);
+
+                $studentData = DB::table('session')
+                    ->where('student_id', $studentParentId[1])
+                    ->where('parent_id', $studentParentId[2])
+                    ->orderBy('id','DESC')
+                    ->first();
+                $studentData = json_decode($studentData->all_info, true);
+                $studentData = json_decode($studentData['applicationInfo']);
+
+                if ($update_product){
+                    ApplicantStudent::create([
+                        'parent_id' => $studentParentId[2],
+                        'student_id' => $studentParentId[1],
+                        'school_id' => $studentData->school_name,
+                        'class_id' => $studentData->class_name,
+                        'version_id' => $studentData->version,
+                        'shift_id' => $studentData->shift_name,
+                        'admission_number' => '256',
+                        'student_age' => '5',
+                        'session' => '23-24',
+                        'transaction_id'=>$order_details->transaction_id,
+                        'payment_status'=>'complete'
+                    ]);
+                }
+                return Redirect::to('http://localhost:3000/payment-done');
             }
         } else if ($order_details->status == 'Processing' || $order_details->status == 'Complete') {
             /*
@@ -121,9 +157,6 @@ class PaymentController extends Controller
             #That means something wrong happened. You can redirect customer to your product page.
             echo "Invalid Transaction";
         }
-
-        return Redirect::to('http://localhost:3000/payment-done');
-
 
     }
 
@@ -146,7 +179,7 @@ class PaymentController extends Controller
             echo "Transaction is Invalid";
         }
 
-        return Redirect::to('http://localhost:3000/payment-done');
+        return Redirect::to('http://localhost:3000/payment-fail');
 
     }
 
@@ -168,7 +201,7 @@ class PaymentController extends Controller
         } else {
             echo "Transaction is Invalid";
         }
-        return Redirect::to('http://localhost:3000/payment-done');
+        return Redirect::to('http://localhost:3000/payment-cancel');
 
     }
 

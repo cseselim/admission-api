@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,3 +74,6 @@ Route::post('/ssl-payment', [\App\Http\Controllers\API\PaymentController::class,
 Route::post('/success', [\App\Http\Controllers\API\PaymentController::class, 'success']);
 Route::post('/fail', [\App\Http\Controllers\API\PaymentController::class, 'fail']);
 Route::post('/cancel', [\App\Http\Controllers\API\PaymentController::class, 'cancel']);
+Route::post('/abc', function (){
+    dd(Session::get('applicantInfo'));
+});
