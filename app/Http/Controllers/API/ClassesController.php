@@ -17,7 +17,7 @@ class ClassesController extends Controller
      */
     public function index()
     {
-        return  ClassResource::collection(Classes::where('status',1)->get());
+        return  ClassResource::collection(Classes::get());
     }
 
     /**
@@ -41,8 +41,8 @@ class ClassesController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:classes',
             'code' => 'required|unique:classes,code',
+            'status' => 'nullable',
         ]);
-
         Classes::create($validated);
 
         return response()->json(['message' => __('Class create successfully')], 201);
@@ -56,7 +56,7 @@ class ClassesController extends Controller
      */
     public function show($id)
     {
-        //
+        return  Classes::where('id',$id)->first();
     }
 
     /**
@@ -84,6 +84,7 @@ class ClassesController extends Controller
             [
                 'name' => 'required|unique:classes,name,'.$id,
                 'code' => 'required|unique:classes,code,'.$id,
+                'status' => 'nullable',
             ]
         );
 

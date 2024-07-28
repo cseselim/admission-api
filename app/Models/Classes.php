@@ -16,7 +16,8 @@ class Classes extends Model
      */
     protected $fillable = [
         'name',
-        'code'
+        'code',
+        'status'
     ];
 
     public function AdmissionNumber(){

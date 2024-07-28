@@ -27,6 +27,9 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
+Route::GET('/applicant-student-count', [\App\Http\Controllers\API\DashboardController::class, 'applicantStudentCount'])->name('dashboard.applicantStudentCount');
+
+
 Route::GET('/schools', [\App\Http\Controllers\API\SchoolController::class, 'index'])->name('school.index');
 Route::GET('/parents', [\App\Http\Controllers\API\SchoolController::class, 'parents'])->name('school.parents');
 Route::POST('/school', [\App\Http\Controllers\API\SchoolController::class, 'store'])->name('school.store');
@@ -36,11 +39,13 @@ Route::DELETE('/school/{id}', [\App\Http\Controllers\API\SchoolController::class
 
 Route::GET('/shift', [\App\Http\Controllers\API\shiftController::class, 'index'])->name('shift.index');
 Route::POST('/shift', [\App\Http\Controllers\API\shiftController::class, 'store'])->name('shift.store');
+Route::get('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'edit'])->name('classes.edit');
 Route::post('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'update'])->name('shift.update');
 Route::DELETE('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'destroy'])->name('shift.destroy');
 
 Route::get('/classes', [\App\Http\Controllers\API\ClassesController::class, 'index'])->name('classes.index');
 Route::post('/classes', [\App\Http\Controllers\API\ClassesController::class, 'store'])->name('classes.store');
+Route::get('/classes/{id}', [\App\Http\Controllers\API\ClassesController::class, 'show'])->name('classes.show');
 Route::post('/classes/{id}', [\App\Http\Controllers\API\ClassesController::class, 'update'])->name('classes.update');
 Route::delete('/classes/{id}', [\App\Http\Controllers\API\ClassesController::class, 'destroy'])->name('classes.destroy');
 
@@ -51,6 +56,7 @@ Route::delete('/admission-number/{id}', [\App\Http\Controllers\API\AdmissionNumb
 
 Route::get('/version', [\App\Http\Controllers\API\VersionController::class, 'index'])->name('version.index');
 Route::post('/version', [\App\Http\Controllers\API\VersionController::class, 'store'])->name('version.store');
+Route::get('/version/{id}', [\App\Http\Controllers\API\VersionController::class, 'edit'])->name('version.edit');
 Route::post('/version/{id}', [\App\Http\Controllers\API\VersionController::class, 'update'])->name('version.update');
 Route::delete('/version/{id}', [\App\Http\Controllers\API\VersionController::class, 'destroy'])->name('version.destroy');
 
@@ -66,8 +72,14 @@ Route::get('/student-profile/{id}', [\App\Http\Controllers\API\StudentProfileCon
 Route::post('/student-profile/{id}', [\App\Http\Controllers\API\StudentProfileController::class, 'update'])->name('student-profile.update');
 Route::delete('/student-profile/{id}', [\App\Http\Controllers\API\StudentProfileController::class, 'destroy'])->name('student-profile.destroy');
 
-
+Route::get('/applicant-student', [\App\Http\Controllers\API\StudentApplicationController::class, 'index'])->name('applicant-student.index');
 Route::post('/student-application', [\App\Http\Controllers\API\StudentApplicationController::class, 'store'])->name('student-application.store');
+Route::get('/applicant-student/{id}', [\App\Http\Controllers\API\StudentApplicationController::class, 'show'])->name('applicant-student.show');
+Route::get('/payment-pending-students', [\App\Http\Controllers\API\StudentApplicationController::class, 'paymentPendingStudents'])->name('applicant-student.paymentPendingStudents');
+Route::get('/applicant-student-approve/{id}', [\App\Http\Controllers\API\StudentApplicationController::class, 'applicantStudentApprove'])->name('applicant-student.applicantStudentApprove');
+Route::get('/selected-student', [\App\Http\Controllers\API\StudentApplicationController::class, 'selectedStudent'])->name('applicant-student.selectedStudent');
+Route::get('/selected-student-disapprove/{id}', [\App\Http\Controllers\API\StudentApplicationController::class, 'applicantStudentDisapprove'])->name('applicant-student.applicantStudentDisapprove');
+
 
 Route::post('/ssl-payment', [\App\Http\Controllers\API\PaymentController::class, 'payment']);
 

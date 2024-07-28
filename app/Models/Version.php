@@ -16,6 +16,7 @@ class Version extends Model
      */
     protected $fillable = [
         'name',
-        'code'
+        'code',
+        'status'
     ];
 }

@@ -17,7 +17,7 @@ class VersionController extends Controller
      */
     public function index()
     {
-        return  VersionResource::collection(Version::where('status',1)->get());
+        return  VersionResource::collection(Version::get());
     }
 
     /**
@@ -41,6 +41,7 @@ class VersionController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:shifts',
             'code' => 'required|unique:shifts,code',
+            'status' => 'nullable',
         ]);
 
         Version::create($validated);
@@ -67,7 +68,7 @@ class VersionController extends Controller
      */
     public function edit($id)
     {
-        //
+        return  Version::where('id',$id)->first();
     }
 
     /**
@@ -84,6 +85,7 @@ class VersionController extends Controller
             [
                 'name' => 'required|unique:shifts,name,'.$id,
                 'code' => 'required|unique:shifts,code,'.$id,
+                'status' => 'nullable',
             ]
         );
 

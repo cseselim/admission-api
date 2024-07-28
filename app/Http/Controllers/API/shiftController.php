@@ -17,7 +17,7 @@ class shiftController extends Controller
      */
     public function index()
     {
-        return  ShiftResource::collection(Shift::where('status',1)->get());
+        return  ShiftResource::collection(Shift::get());
     }
 
     /**
@@ -41,6 +41,7 @@ class shiftController extends Controller
         $validated = $request->validate([
             'name' => 'required|unique:shifts',
             'code' => 'required|unique:shifts,code',
+            'status' => 'nullable',
         ]);
 
         Shift::create($validated);
@@ -67,7 +68,7 @@ class shiftController extends Controller
      */
     public function edit($id)
     {
-        //
+        return  Shift::where('id',$id)->first();
     }
 
     /**
@@ -84,6 +85,7 @@ class shiftController extends Controller
             [
                 'name' => 'required|unique:shifts,name,'.$id,
                 'code' => 'required|unique:shifts,code,'.$id,
+                'status' => 'nullable',
             ]
         );
 

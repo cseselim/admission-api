@@ -64,7 +64,7 @@ class SchoolController extends Controller
      */
     public function show($id)
     {
-        return  response()->json(['data' => School::find($id)]);
+        return  School::find($id);
     }
 
     /**
