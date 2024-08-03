@@ -27,6 +27,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
+Route::post('/change-password', [\App\Http\Controllers\API\UserController::class, 'changePasswordSave'])->name('postChangePassword');
+
 Route::GET('/applicant-student-count', [\App\Http\Controllers\API\DashboardController::class, 'applicantStudentCount'])->name('dashboard.applicantStudentCount');
 
 
@@ -82,7 +84,6 @@ Route::get('/selected-student-disapprove/{id}', [\App\Http\Controllers\API\Stude
 
 
 Route::post('/ssl-payment', [\App\Http\Controllers\API\PaymentController::class, 'payment']);
-
 Route::post('/success', [\App\Http\Controllers\API\PaymentController::class, 'success']);
 Route::post('/fail', [\App\Http\Controllers\API\PaymentController::class, 'fail']);
 Route::post('/cancel', [\App\Http\Controllers\API\PaymentController::class, 'cancel']);
