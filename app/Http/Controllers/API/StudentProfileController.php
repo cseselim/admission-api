@@ -49,8 +49,11 @@ class StudentProfileController extends Controller
             'unit' => 'nullable',
             'rank' => 'nullable',
             'mother_name' => 'required',
-            'mother_contact' => 'nullable',
+            'mother_occupation' => 'nullable',
             'permanent_address' => 'required',
+            'present_address' => 'required',
+            'email_address' => 'required',
+            'contact_number' => 'required',
             'date_of_birth' => 'required',
             'birth_registration_no' => 'nullable',
             'student_sex' => 'required',
@@ -63,7 +66,7 @@ class StudentProfileController extends Controller
             'height' => 'nullable',
             'legal_guardian_name' => 'nullable',
             'relation_with_guardian' => 'nullable',
-            'guardian_occupation' => 'nullable',
+            'legal_guardian_occupation' => 'nullable',
             'guardian_income' => 'required|numeric',
             'skill' => 'nullable',
             'profile_image' => 'required',
@@ -127,7 +130,7 @@ class StudentProfileController extends Controller
             'unit' => 'nullable',
             'rank' => 'nullable',
             'mother_name' => 'required',
-            'mother_contact' => 'nullable',
+            'mother_occupation' => 'nullable',
             'permanent_address' => 'required',
             'present_address' => 'required',
             'email_address' => 'required',
@@ -144,7 +147,7 @@ class StudentProfileController extends Controller
             'height' => 'nullable',
             'legal_guardian_name' => 'nullable',
             'relation_with_guardian' => 'nullable',
-            'guardian_occupation' => 'nullable',
+            'legal_guardian_occupation' => 'nullable',
             'guardian_income' => 'required|numeric',
             'skill' => 'nullable',
             'profile_image' => 'required',
@@ -152,7 +155,14 @@ class StudentProfileController extends Controller
             'unit_certificate' => 'nullable',
             'status' => 'required',
         ]);
-
+        if($request->hasfile('profile_image'))
+        {
+            $file = $request->file('profile_image');
+            $extenstion = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extenstion;
+            $file->move('uploads/profileImage/', $filename);
+            $validated['profile_image'] = $filename;
+        }
         $data = StudentProfile::find($id);
         if (!$data) {
             throw new CustomException(__('Student profile not found'),404);
