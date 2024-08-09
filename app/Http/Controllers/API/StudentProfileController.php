@@ -129,6 +129,9 @@ class StudentProfileController extends Controller
             'mother_name' => 'required',
             'mother_contact' => 'nullable',
             'permanent_address' => 'required',
+            'present_address' => 'required',
+            'email_address' => 'required',
+            'contact_number' => 'required',
             'date_of_birth' => 'required',
             'birth_registration_no' => 'nullable',
             'student_sex' => 'required',
@@ -156,7 +159,7 @@ class StudentProfileController extends Controller
         }
         $data->update($validated);
 
-        return response()->json(['message' => __('Student profile updated successfully')]);
+        return response()->json(['message' => __('Student profile updated successfully')],200);
     }
 
     /**

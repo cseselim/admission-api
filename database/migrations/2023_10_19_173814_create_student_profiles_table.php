@@ -23,11 +23,16 @@ class CreateStudentProfilesTable extends Migration
             $table->string('father_occupation',50)->nullable();
             $table->string('father_contact',50)->nullable();
             $table->string('occupation_category',50)->nullable();
+            $table->decimal('guardian_income',2)->nullable();
             $table->string('unit',255)->nullable();
             $table->string('rank',255)->nullable();
             $table->string('mother_name',100)->nullable();
+            $table->string('mother_occupation',50)->nullable();
             $table->string('mother_contact',50)->nullable();
+            $table->string('email_address',100)->nullable();
+            $table->string('contact_number',100)->nullable();
             $table->text('permanent_address')->nullable();
+            $table->text('present_address')->nullable();
             $table->string('date_of_birth',100);
             $table->string('birth_registration_no',50)->nullable();
             $table->string('student_sex',150);
@@ -40,8 +45,8 @@ class CreateStudentProfilesTable extends Migration
             $table->string('height',255)->nullable();
             $table->string('legal_guardian_name',255)->nullable();
             $table->string('relation_with_guardian',100)->nullable();
-            $table->string('guardian_occupation',255)->nullable();
-            $table->decimal('guardian_income',2)->nullable();
+            $table->string('legal_guardian_occupation',255)->nullable();
+            $table->decimal('legal_guardian_income',2)->nullable();
             $table->text('skill')->nullable();
             $table->string('profile_image',255)->nullable();
             $table->string('birth_certificate',255)->nullable();
