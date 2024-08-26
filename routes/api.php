@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\PermissionController;
+use App\Http\Controllers\API\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
@@ -35,13 +37,13 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::GET('/schools', [\App\Http\Controllers\API\SchoolController::class, 'index'])->name('school.index');
     Route::GET('/parents', [\App\Http\Controllers\API\SchoolController::class, 'parents'])->name('school.parents');
     Route::POST('/school', [\App\Http\Controllers\API\SchoolController::class, 'store'])->name('school.store');
-    Route::get('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'show'])->name('school.show');
+    Route::get('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'show'])->name('school.edit');
     Route::post('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'update'])->name('school.update');
     Route::DELETE('/school/{id}', [\App\Http\Controllers\API\SchoolController::class, 'destroy'])->name('school.destroy');
 
     Route::GET('/shift', [\App\Http\Controllers\API\shiftController::class, 'index'])->name('shift.index');
     Route::POST('/shift', [\App\Http\Controllers\API\shiftController::class, 'store'])->name('shift.store');
-    Route::get('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'edit'])->name('classes.edit');
+    Route::get('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'edit'])->name('shift.edit');
     Route::post('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'update'])->name('shift.update');
     Route::DELETE('/shift/{id}', [\App\Http\Controllers\API\shiftController::class, 'destroy'])->name('shift.destroy');
 
@@ -81,6 +83,12 @@ Route::group(['middleware' => ['auth:api']], function(){
     Route::get('/applicant-student-approve/{id}', [\App\Http\Controllers\API\StudentApplicationController::class, 'applicantStudentApprove'])->name('applicant-student.applicantStudentApprove');
     Route::get('/selected-student', [\App\Http\Controllers\API\StudentApplicationController::class, 'selectedStudent'])->name('applicant-student.selectedStudent');
     Route::get('/selected-student-disapprove/{id}', [\App\Http\Controllers\API\StudentApplicationController::class, 'applicantStudentDisapprove'])->name('applicant-student.applicantStudentDisapprove');
+
+
+    Route::apiResource('roles', RoleController::class);
+    Route::post('/roles/{id}', [\App\Http\Controllers\API\RoleController::class, 'update'])->name('rules.update');
+    Route::apiResource('permissions', PermissionController::class);
+    Route::post('/permissions/{id}', [\App\Http\Controllers\API\PermissionController::class, 'update'])->name('rules.update');
 });
 
 Route::post('/ssl-payment', [\App\Http\Controllers\API\PaymentController::class, 'payment']);
