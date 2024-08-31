@@ -24,6 +24,7 @@ class CreateUsersTable extends Migration
             $table->integer('is_first_login')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->tinyInteger('user_type')->nullable()->comment('1=admin,2=teacher,3=parent');
+            $table->tinyInteger('role_id')->nullable();
             $table->string('profile_pic',255)->nullable();
             $table->rememberToken();
             $table->timestamps();

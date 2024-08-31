@@ -29,11 +29,17 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('refresh', 'refresh');
 });
 
-Route::post('/change-password', [\App\Http\Controllers\API\UserController::class, 'changePasswordSave'])->name('postChangePassword');
-
-Route::GET('/applicant-student-count', [\App\Http\Controllers\API\DashboardController::class, 'applicantStudentCount'])->name('dashboard.applicantStudentCount');
-
 Route::group(['middleware' => ['auth:api']], function(){
+
+    Route::post('/change-password', [\App\Http\Controllers\API\UserController::class, 'changePasswordSave'])->name('postChangePassword');
+    Route::GET('/applicant-student-count', [\App\Http\Controllers\API\DashboardController::class, 'applicantStudentCount'])->name('dashboard.applicantStudentCount');
+
+    Route::GET('/users', [\App\Http\Controllers\API\UserController::class, 'index'])->name('user.index');
+    Route::POST('/user-role', [\App\Http\Controllers\API\UserController::class, 'store'])->name('user.store');
+    Route::GET('/user-role/{id}', [\App\Http\Controllers\API\UserController::class, 'edit'])->name('user.edit');
+    Route::POST('/user-role/{id}', [\App\Http\Controllers\API\UserController::class, 'update'])->name('user.update');
+    Route::DELETE('/users/{id}', [\App\Http\Controllers\API\UserController::class, 'destroy'])->name('school.destroy');
+
     Route::GET('/schools', [\App\Http\Controllers\API\SchoolController::class, 'index'])->name('school.index');
     Route::GET('/parents', [\App\Http\Controllers\API\SchoolController::class, 'parents'])->name('school.parents');
     Route::POST('/school', [\App\Http\Controllers\API\SchoolController::class, 'store'])->name('school.store');

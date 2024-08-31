@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,9 @@ class RoleController extends Controller
 {
     public function index()
     {
-        return Role::all();
+        $data['roles'] = Role::all();
+        $data['permission'] = Permission::all();
+        return response()->json($data);
     }
 
     public function store(Request $request)
@@ -27,7 +30,7 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         $role = Role::findOrFail($id);
-        $role->update(['name' => $request->name,'guard_name' => $request->guard_name]);
+        $result = $role->syncPermissions($request->roles);
         return response()->json($role);
     }
 
