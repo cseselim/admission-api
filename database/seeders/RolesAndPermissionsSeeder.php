@@ -15,6 +15,7 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run()
     {
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         // Create permissions
         Permission::create(['name' => 'shift.index','display_name' => 'Shift List']);
         Permission::create(['name' => 'shift.store','display_name' => 'Shift Add']);
@@ -31,10 +32,14 @@ class RolesAndPermissionsSeeder extends Seeder
         $teacherRoles = Role::create(['name' => 'Teacher']);
         $parentRoles = Role::create(['name' => 'Parent']);
 
-        $teacherRoles->givePermissionTo('shift.index');
-        $teacherRoles->givePermissionTo('shift.store');
-        $teacherRoles->givePermissionTo('shift.edit');
-        $teacherRoles->givePermissionTo('shift.destroy');
+        $teacherRoles->givePermissionTo([
+            'shift.index',
+            'shift.store',
+            'shift.edit',
+            'shift.destroy'
+        ]);
+//        $teacherRoles->givePermissionTo($permission);
+//        $permission->assignRole($adminRole);
         $adminRole->givePermissionTo(Permission::all());
     }
 }

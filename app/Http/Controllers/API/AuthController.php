@@ -30,13 +30,13 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $user = Auth::user();
+        $data['user'] = Auth::user();
+        $user = User::find($data['user']->id);
+        $data['role'] = $user->getRoleNames();
+        $data['permissions'] = $user->getAllPermissions()->pluck('name','display_name')->toArray();
+        $data['token'] = $token;
         return response()->json([
-            'user' => $user,
-            'authorization' => [
-                'token' => $token,
-                'type' => 'bearer',
-            ]
+            'data' => $data,
         ]);
     }
 

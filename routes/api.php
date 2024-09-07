@@ -28,7 +28,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', 'logout');
     Route::post('refresh', 'refresh');
 });
-
 Route::group(['middleware' => ['auth:api']], function(){
 
     Route::post('/change-password', [\App\Http\Controllers\API\UserController::class, 'changePasswordSave'])->name('postChangePassword');

@@ -83,8 +83,9 @@ class UserController extends Controller
         }
         $user->is_active=$request->is_active;
         $user->user_type=$request->user_type;
-        $user->role_id=$request->role_id;
+//        $user->role_id=$request->role_id;
         $result = $user->save();
+        $user->syncRoles($request->role_id);
         if ($result){
             return response()->json(['message' => __('User Updated Successfully')],200);
         }else{

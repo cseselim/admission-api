@@ -70,10 +70,13 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
-    public $guard_name = 'api';
-
-
     function studentProfile(){
         return $this->hasMany(StudentProfile::class);
     }
+
+//    public function roles(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+//    {
+//        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+//        //return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+//    }
 }

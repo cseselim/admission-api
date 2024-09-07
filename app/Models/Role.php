@@ -9,7 +9,7 @@ use Spatie\Permission\Models\Permission;
 
 class Role extends Model
 {
-    use HasFactory, HasRoles;
+    use HasRoles;
 
     protected $fillable = [
         'name',
@@ -17,8 +17,8 @@ class Role extends Model
     ];
 
 
-    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
-    {
-        return $this->belongsToMany(Permission::class, 'role_has_permissions');
-    }
+//    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+//    {
+//        return $this->belongsToMany(Permission::class, 'role_has_permissions');
+//    }
 }
