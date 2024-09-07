@@ -110,4 +110,8 @@ class UserController extends Controller
 
         throw new CustomException(__('User not found to delete'));
     }
+
+    public function user($id){
+        return User::find($id);
+    }
 }
