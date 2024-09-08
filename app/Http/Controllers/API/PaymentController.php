@@ -69,7 +69,7 @@ class PaymentController extends Controller
             $update_product = DB::table('applicant_payments')
                 ->where('transaction_id', $post_data['tran_id'])
                 ->updateOrInsert([
-                    'applicant_id' => 11,
+                    'applicant_id' => json_decode($data['applicationInfo'])->student_id,
                     'name' => $post_data['cus_name'],
                     'email' => $post_data['cus_email'],
                     'phone' => $post_data['cus_phone'],
